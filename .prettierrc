@@ -1,0 +1,15 @@
+{
+  "useTabs": true,
+  "semi": false,
+  "trailingComma": "all",
+  "singleQuote": true,
+  "editorconfig": true,
+  "overrides": [
+    {
+      "files": "Pulumi.*.yaml",
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
+}
