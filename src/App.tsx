@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import * as esbuild from 'esbuild-wasm'
-
+import { unpkgPathPlugin } from './plugins/unpkg-path-plugin'
 export const App = () => {
 	const serviceRef = useRef<any>()
 	const [input, setInput] = useState('')
@@ -22,16 +22,22 @@ export const App = () => {
 	}
 
 	const handleClick = async () => {
-		if (!serviceRef.current) {
+		const service = serviceRef.current
+
+		if (!service) {
 			return
 		}
-		const result = await serviceRef.current.transform(input, {
-			loader: 'jsx',
-			target: 'es2015',
+		const result = await service.build({
+			entryPoints: ['index.js'],
+			bundle: true,
+			write: false,
+			plugins: [unpkgPathPlugin()],
 		})
 
-		if (result.code) {
-			setCode(result.code)
+		console.log(result)
+
+		if (result.outputFiles[0].text) {
+			setCode(result.outputFiles[0].text)
 		}
 
 		// use esbuild to transpile the string and set to state:code
