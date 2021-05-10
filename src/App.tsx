@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import * as esbuild from 'esbuild-wasm'
+import 'bulmaswatch/superhero/bulmaswatch.min.css'
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin'
 import { fetchPlugin } from './plugins/fetch-plugin'
-
+import { CodeEditor } from './components/codeEditor'
 export const App = () => {
 	const serviceRef = useRef<any>()
 	const iframe = useRef<any>()
 	const [input, setInput] = useState('')
+	const [googleFont, setGoogleFont] = useState('')
 
 	const startService = async () => {
 		serviceRef.current = await esbuild.startService({
@@ -18,10 +20,6 @@ export const App = () => {
 	useEffect(() => {
 		startService()
 	}, [])
-
-	const handleChange = (e: any) => {
-		setInput(e.target.value)
-	}
 
 	const handleClick = async () => {
 		const service = serviceRef.current
@@ -51,7 +49,6 @@ export const App = () => {
 			<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<title>Running your code</title>
-
 		</head>
 		<body>
 			<div id="root"></div>
@@ -74,7 +71,10 @@ export const App = () => {
 	`
 	return (
 		<div>
-			<textarea onChange={(e) => handleChange(e)} value={input}></textarea>
+			<CodeEditor
+				initialValue="import React from 'react'"
+				onChange={(value) => setInput(value)}
+			/>
 			<div>
 				<button onClick={handleClick}>Submit</button>
 			</div>
@@ -83,6 +83,7 @@ export const App = () => {
 				title="users-html"
 				srcDoc={html}
 				sandbox="allow-scripts"
+				style={{ width: '100%', height: '50vh', border: '5px solid' }}
 			/>
 		</div>
 	)

@@ -9,14 +9,20 @@
 		"@testing-library/user-event": "^12.1.10",
 		"@types/jest": "^26.0.15",
 		"@types/node": "^12.0.0",
+		"@types/prettier": "^2.2.3",
 		"@types/react": "^17.0.0",
 		"@types/react-dom": "^17.0.0",
 		"axios": "^0.21.1",
+		"bulmaswatch": "^0.8.1",
 		"esbuild-wasm": "0.8.27",
 		"localforage": "^1.9.0",
+		"monaco-editor": "0.21.3",
+		"node-sass": "^6.0.0",
+		"prettier": "^2.3.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-scripts": "4.0.3",
+		"styled-components": "^5.3.0",
 		"typescript": "^4.1.2",
 		"web-vitals": "^1.0.1"
 	},
@@ -43,5 +49,8 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"devDependencies": {
+		"@types/styled-components": "^5.1.9"
 	}
 }
