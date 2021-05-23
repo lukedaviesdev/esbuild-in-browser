@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
-import { Box, Button, Flex, Grid, GridItem } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import { CodeEditor } from '../codeEditor'
 import { Preview } from '../Preview'
 import { bundler } from '../../bundler'

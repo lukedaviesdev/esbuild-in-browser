@@ -1,4 +1,3 @@
-import { Box, Flex } from '@chakra-ui/react'
 import React, { useEffect, useRef } from 'react'
 import { htmlTemplate } from './html-template'
 import './preview.css'
