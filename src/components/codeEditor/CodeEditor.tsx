@@ -1,5 +1,5 @@
 import MonacoEditor, { EditorDidMount } from '@monaco-editor/react'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import Prettier from 'prettier'
 import parser from 'prettier/parser-babel'
 import codeShift from 'jscodeshift'
@@ -17,6 +17,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 	initialValue,
 	onChange,
 }) => {
+	const [hoverState, setHoverState] = useState(false)
+
 	const editorRef = useRef<any>()
 
 	const onEditorDidMount: EditorDidMount = (getValue, monacoEditor) => {
@@ -38,7 +40,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 			() => {},
 		)
 	}
-	const onFormatClick = () => {
+	function onFormatClick() {
 		const unformatted = editorRef.current.getModel().getValue()
 		const formatted = Prettier.format(unformatted, {
 			parser: 'babel',
@@ -51,17 +53,24 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 	}
 
 	return (
-		<Box width="100%" height="100%" className="editor-wrapper">
+		<Box
+			width="100%"
+			height="100%"
+			className="editor-wrapper"
+			onMouseEnter={() => setHoverState(true)}
+			onMouseLeave={() => setHoverState(false)}
+		>
 			<Box pr={4} position="relative">
 				<Button
 					size="xs"
 					variant="solid"
 					colorScheme="blue"
 					position="absolute"
-					top={0}
+					top={2}
 					right={4}
 					zIndex={1}
 					onClick={onFormatClick}
+					opacity={hoverState ? 1 : 0}
 				>
 					Format
 				</Button>
