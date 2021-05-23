@@ -3,11 +3,15 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@chakra-ui/react": "^1.6.2",
+		"@emotion/react": "^11.4.0",
+		"@emotion/styled": "^11.3.0",
 		"@monaco-editor/react": "3.7.5",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/user-event": "^12.1.10",
 		"@types/jest": "^26.0.15",
+		"@types/jscodeshift": "0.7.2",
 		"@types/node": "^12.0.0",
 		"@types/prettier": "^2.2.3",
 		"@types/react": "^17.0.0",
@@ -15,12 +19,17 @@
 		"axios": "^0.21.1",
 		"bulmaswatch": "^0.8.1",
 		"esbuild-wasm": "0.8.27",
+		"framer-motion": "^4.1.17",
+		"jscodeshift": "0.11.0",
 		"localforage": "^1.9.0",
+		"lodash.debounce": "^4.0.8",
 		"monaco-editor": "0.21.3",
+		"monaco-jsx-highlighter": "0.0.15",
 		"node-sass": "^6.0.0",
 		"prettier": "^2.3.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
+		"react-resizable": "^3.0.1",
 		"react-scripts": "4.0.3",
 		"styled-components": "^5.3.0",
 		"typescript": "^4.1.2",
@@ -51,6 +60,8 @@
 		]
 	},
 	"devDependencies": {
+		"@types/lodash.debounce": "^4.0.6",
+		"@types/react-resizable": "^1.7.2",
 		"@types/styled-components": "^5.1.9"
 	}
 }

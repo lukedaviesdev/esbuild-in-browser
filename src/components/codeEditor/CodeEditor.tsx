@@ -1,8 +1,13 @@
 import MonacoEditor, { EditorDidMount } from '@monaco-editor/react'
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import Prettier from 'prettier'
 import parser from 'prettier/parser-babel'
-import { StyledCodeEditorWrap, StyledButtonWrap } from './style'
+import codeShift from 'jscodeshift'
+import Highlighter from 'monaco-jsx-highlighter'
+
+import { Box, Button } from '@chakra-ui/react'
+import './syntax.css'
+import './code-editor.css'
 interface CodeEditorProps {
 	initialValue: string
 	onChange(value: string): void
@@ -19,6 +24,19 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 		monacoEditor.onDidChangeModelContent(() => {
 			onChange(getValue())
 		})
+
+		const highlighter = new Highlighter(
+			// @ts-ignore
+			window.monaco,
+			codeShift,
+			monacoEditor,
+		)
+		highlighter.highLightOnDidChangeModelContent(
+			() => {},
+			() => {},
+			undefined,
+			() => {},
+		)
 	}
 	const onFormatClick = () => {
 		const unformatted = editorRef.current.getModel().getValue()
@@ -28,24 +46,29 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 			useTabs: true,
 			semi: false,
 			singleQuote: true,
-		})
+		}).replace(/\n$/, '')
 		editorRef.current.setValue(formatted)
 	}
 
 	return (
-		<StyledCodeEditorWrap>
-			<StyledButtonWrap>
-				<button
-					className="button button-format is-primary is-small"
+		<Box width="100%" height="100%" className="editor-wrapper">
+			<Box pr={4} position="relative">
+				<Button
+					size="xs"
+					variant="solid"
+					colorScheme="blue"
+					position="absolute"
+					top={0}
+					right={4}
+					zIndex={1}
 					onClick={onFormatClick}
-					style={{ position: 'absolute' }}
 				>
 					Format
-				</button>
-			</StyledButtonWrap>
+				</Button>
+			</Box>
 			<MonacoEditor
 				value={initialValue}
-				height="30vh"
+				height="100%"
 				theme="vs-dark"
 				language="javascript"
 				editorDidMount={onEditorDidMount}
@@ -63,6 +86,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 					tabCompletion: 'on',
 				}}
 			/>
-		</StyledCodeEditorWrap>
+		</Box>
 	)
 }
