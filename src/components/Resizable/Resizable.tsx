@@ -24,7 +24,7 @@ export const Resizable: React.FC<OwnProps> = ({ direction, children }) => {
 		return () => {
 			window.removeEventListener('resize', debounce(listener, 150))
 		}
-	}, [])
+	}, [width])
 
 	let resizableProps: ResizableBoxProps
 
