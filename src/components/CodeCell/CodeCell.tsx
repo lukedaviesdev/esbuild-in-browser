@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Box, Button, Flex, Grid, GridItem } from '@chakra-ui/react'
 import { CodeEditor } from '../codeEditor'
@@ -10,10 +10,16 @@ export const CodeCell = () => {
 	const [input, setInput] = useState('')
 	const [codeResult, setCodeResult] = useState('')
 
-	const handleClick = async () => {
-		const output = await bundler(input)
-		setCodeResult(output)
-	}
+	useEffect(() => {
+		const timer = setTimeout(async () => {
+			const output = await bundler(input)
+			setCodeResult(output)
+		}, 1000)
+
+		return () => {
+			clearTimeout(timer)
+		}
+	}, [input])
 
 	return (
 		<Resizable direction="vertical">

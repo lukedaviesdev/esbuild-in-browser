@@ -12,7 +12,13 @@ export const Preview: React.FC<OwnProps> = ({ code }) => {
 
 	useEffect(() => {
 		iframe.current.srcdoc = htmlTemplate
-		iframe.current.contentWindow.postMessage(code, '*')
+		const timer = setTimeout(() => {
+			iframe.current.contentWindow.postMessage(code, '*')
+		}, 30)
+
+		return () => {
+			clearTimeout(timer)
+		}
 	}, [code])
 
 	return (
